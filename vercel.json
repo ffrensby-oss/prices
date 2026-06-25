@@ -1,8 +1,8 @@
 {
   "crons": [
     {
-      "path": "/api/update_tasas",
-      "schedule": "0 */7 * * *"
+      "path": "/api/index",
+      "schedule": "0 7 * * *"
     }
   ]
 }

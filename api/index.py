@@ -19,7 +19,7 @@ class handler(BaseHTTPRequestHandler):
             return
 
         try:
-            # 1. Obtener las tasas de El Toque
+            # Obtener las tasas de el toque
             res = requests.get(
                 "https://tasas.eltoque.com/v1/trmi",
                 headers={
@@ -31,7 +31,7 @@ class handler(BaseHTTPRequestHandler):
             res.raise_for_status()
             tasas = res.json().get("tasas", {})
 
-            # 2. Estructurar el nuevo contenido
+            # 2estructurar el uevo contenidooooooooooooooo
             nuevo_contenido = {
                 "id": random.randint(1, 100),
                 "USD": tasas.get("USD", 0),
@@ -39,7 +39,7 @@ class handler(BaseHTTPRequestHandler):
             }
             json_string = json.dumps(nuevo_contenido, indent=4)
 
-            # 3. Buscar sha del archivo existente en GitHub
+            #Buscar sha del archivo existente en gitHb
             url_github = f"https://api.github.com/repos/{GITHUB_REPO}/contents/response.json"
             headers_github = {
                 "Authorization": f"token {GITHUB_TOKEN}",
@@ -49,9 +49,9 @@ class handler(BaseHTTPRequestHandler):
             get_file = requests.get(url_github, headers=headers_github, timeout=10)
             sha = get_file.json().get("sha", "") if get_file.status_code == 200 else ""
 
-            # 4. Codificar a Base64 y hacer commit
+            # 4. Codificar a ambwiwhwuwb verga
             payload = {
-                "message": "🤖 actualización automática de tasas (Cron 7h)",
+                "message": "actualización automática de tasas (Cron 7h)",
                 "content": base64.b64encode(json_string.encode("utf-8")).decode("utf-8"),
                 "branch": "main"
             }

@@ -30,11 +30,27 @@ class handler(BaseHTTPRequestHandler):
             res.raise_for_status()
             tasas = res.json().get("tasas", {})
 
+            url = "https://api.bc.gob.cu/v1/tasas-de-cambio/activas"
+
+            datos = requests.get(url).json()
+
+            dolar: str = ""
+            euro: str = ""
+
+            for moneda in datos["tasas"]:
+                if moneda["codigoMoneda"] == "USD":
+                    dolar = str(moneda["tasaEspecial"])
+
+                elif moneda["codigoMoneda"] == "EUR":
+                    euro = str(moneda["tasaEspecial"])
+            
             # 2estructurar el uevo contenidooooooooooooooo
             nuevo_contenido = {
                 "id": random.randint(1, 100),
                 "USD": tasas.get("USD", 0),
-                "ECU": tasas.get("ECU", 0)
+                "ECU": tasas.get("ECU", 0),
+                "CUSD": dolar,
+                "CECU": euro,
             }
             json_string = json.dumps(nuevo_contenido, indent=4)
 

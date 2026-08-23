@@ -49,8 +49,8 @@ class handler(BaseHTTPRequestHandler):
                 "id": random.randint(1, 100),
                 "USD": tasas.get("USD", 0),
                 "ECU": tasas.get("ECU", 0),
-                "CUSD": dolar,
-                "CECU": euro,
+                "CUSD": int(dolar),
+                "CECU": int(euro),
             }
             json_string = json.dumps(nuevo_contenido, indent=4)
 

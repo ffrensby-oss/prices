@@ -34,23 +34,23 @@ class handler(BaseHTTPRequestHandler):
 
             datos = requests.get(url).json()
 
-            dolar: str = ""
-            euro: str = ""
+            dolar: int = 0
+            euro: int = 0
 
             for moneda in datos["tasas"]:
                 if moneda["codigoMoneda"] == "USD":
-                    dolar = str(moneda["tasaEspecial"])
+                    dolar = int(moneda["tasaEspecial"])
 
                 elif moneda["codigoMoneda"] == "EUR":
-                    euro = str(moneda["tasaEspecial"])
+                    euro = int(moneda["tasaEspecial"])
             
             # 2estructurar el uevo contenidooooooooooooooo
             nuevo_contenido = {
                 "id": random.randint(1, 100),
                 "USD": tasas.get("USD", 0),
                 "ECU": tasas.get("ECU", 0),
-                "CUSD": int(dolar),
-                "CECU": int(euro),
+                "CUSD": dolar,
+                "CECU": euro,
             }
             json_string = json.dumps(nuevo_contenido, indent=4)
 
